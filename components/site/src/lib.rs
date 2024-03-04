@@ -1,6 +1,5 @@
 pub mod feeds;
 pub mod link_checking;
-mod minify;
 pub mod sass;
 pub mod sitemap;
 pub mod tpls;
@@ -24,6 +23,7 @@ use templates::{load_tera, render_redirect_template};
 use utils::fs::{
     clean_site_output_folder, copy_directory, copy_file_if_needed, create_directory, create_file,
 };
+use utils::minify;
 use utils::net::{get_available_port, is_external_link};
 use utils::templates::{render_template, ShortcodeDefinition};
 use utils::types::InsertAnchor;

@@ -12,6 +12,7 @@ use libs::tera::{
     Value,
 };
 use markdown::{render_content, RenderContext};
+use utils::minify;
 
 #[derive(Debug)]
 pub struct MarkdownFilter {
@@ -79,6 +80,16 @@ pub fn base64_decode<S: BuildHasher>(
     let as_str =
         String::from_utf8(decoded).map_err(|e| format!("`base64_decode`: invalid utf-8: {}", e))?;
     Ok(to_value(as_str).unwrap())
+}
+
+pub fn minify_html<S: BuildHasher>(
+    value: &Value,
+    _: &HashMap<String, Value, S>,
+) -> TeraResult<Value> {
+    let s = try_get_value!("minify_html", "value", String, value);
+    let minified = minify::html(s)
+        .map_err(|e| format!("`minify_html`: {}", e))?;
+    Ok(to_value(minified).unwrap())
 }
 
 #[derive(Debug)]
