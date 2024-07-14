@@ -15,6 +15,7 @@ pub use gh_emoji;
 pub use glob;
 pub use globset;
 pub use grass;
+pub use html2text;
 pub use image;
 pub use lexical_sort;
 pub use minify_html;

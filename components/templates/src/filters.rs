@@ -92,6 +92,16 @@ pub fn minify_html<S: BuildHasher>(
     Ok(to_value(minified).unwrap())
 }
 
+pub fn html_to_text<S: BuildHasher>(
+    value: &Value,
+    _: &HashMap<String, Value, S>,
+) -> TeraResult<Value> {
+    let s = try_get_value!("html_to_text", "value", String, value);
+    let txt = libs::html2text::TODO(s)
+        .map_err(|e| format!("`html_to_text`: {}", e))?;
+    Ok(to_value(minified).unwrap())
+}
+
 #[derive(Debug)]
 pub struct RegexReplaceFilter {
     re_cache: Arc<Mutex<HashMap<String, Regex>>>,
